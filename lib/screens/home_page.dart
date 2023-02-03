@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:app/models/expense_model.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +15,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<String> readJsonFile(String filePath) async {
+    return await File(filePath).readAsString();
+  }
+
+  void getExpense() async {
+    var expenseData =
+        expenseDataFromJson(await rootBundle.loadString('assets/test.json'));
+    print(expenseData.expense);
+    var newExp =
+        Expense(amount: 10, note: "hello", desc: "this is rhe", date: 123333);
+    expenseData.expense.add(newExp);
+    expenseData.expense.forEach((element) {
+      print(element.desc);
+    });
+    print(expenseDataToJson(expenseData));
+  }
+
   Map<String, double> dataMap = {
     "Flutter": 5,
     "React": 3,
@@ -27,6 +49,7 @@ class _HomePageState extends State<HomePage> {
   @override
   int _currentIndex = 0;
   Widget build(BuildContext context) {
+    getExpense();
     return Scaffold(
       backgroundColor: Colors.grey[400],
       appBar: AppBar(
