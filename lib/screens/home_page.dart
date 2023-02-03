@@ -81,15 +81,36 @@ class _HomePageState extends State<HomePage> {
             child: Text("This is text"),
           ),
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.all(8),
-            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Expenses Structure"),
-                Text("Last 30 Days"),
-                Text("Rs 10,000"),
+                Text(
+                  "Expenses Structure",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text("Last 30 Days", style: TextStyle(color: Colors.grey[400])),
+                SizedBox(
+                  height: 5,
+                ),
+                Text("Rs 10,000",
+                    style: TextStyle(
+                      fontSize: 20,
+                    )),
+                SizedBox(
+                  height: 3,
+                ),
                 PieChart(
                   dataMap: dataMap,
                   animationDuration: Duration(milliseconds: 800),
@@ -118,6 +139,71 @@ class _HomePageState extends State<HomePage> {
                   ),
                   // gradientList: ---To add gradient colors---
                   // emptyColorGradient: ---Empty Color gradient---
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Last records overview",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text("Last 30 Days", style: TextStyle(color: Colors.grey[400])),
+                SizedBox(
+                  height: 5,
+                ),
+                //Item rows
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.phone),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Bar, cafe", style: TextStyle(fontSize: 15)),
+                      Spacer(),
+                      Text("-5000",
+                          style: TextStyle(color: Colors.red, fontSize: 15)),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.phone),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Others", style: TextStyle(fontSize: 15)),
+                      Spacer(),
+                      Text("-129",
+                          style: TextStyle(color: Colors.red, fontSize: 15)),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
