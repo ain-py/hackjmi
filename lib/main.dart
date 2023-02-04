@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:app/provider/main_provider.dart';
 import 'package:app/screens/home_page.dart';
+import 'package:app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: colors.primary_app,
       ),
       home: const HomePage(),
     );
