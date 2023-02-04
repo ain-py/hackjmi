@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app/models/expense_model.dart';
+import 'package:app/utils/constants.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:app/utils/colors.dart';
+import 'package:app/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,15 +48,15 @@ class _HomePageState extends State<HomePage> {
     const Color(0xffe17055),
     const Color(0xff6c5ce7),
   ];
-
   @override
   int _currentIndex = 0;
   Widget build(BuildContext context) {
     getExpense();
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: colors.gray,
       appBar: AppBar(
-        title: Text('Hello world'),
+        backgroundColor: colors.primary,
+        title: Text('Home'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -79,14 +82,6 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.message),
-            title: Text(
-              'Messages test for mes teset test test ',
-            ),
-            activeColor: Colors.pink,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
             icon: Icon(Icons.settings),
             title: Text('Settings'),
             activeColor: Colors.blue,
@@ -99,14 +94,10 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 32,
-            width: 100,
-            child: Text("This is text"),
-          ),
-          Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.white,
+              boxShadow: kboxShadow,
             ),
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.all(8),
@@ -115,22 +106,22 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "Expenses Structure",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(
                   height: 5,
                 ),
-                Text("Last 30 Days", style: TextStyle(color: Colors.grey[400])),
+                Text(
+                  "Last 30 Days",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
                 SizedBox(
                   height: 5,
                 ),
-                Text("Rs 10,000",
-                    style: TextStyle(
-                      fontSize: 20,
-                    )),
+                Text(
+                  "₹ 10,000",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
                 SizedBox(
                   height: 3,
                 ),
@@ -169,9 +160,9 @@ class _HomePageState extends State<HomePage> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
-            ),
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.white,
+                boxShadow: kboxShadow),
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.all(8),
             child: Column(
@@ -179,34 +170,54 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "Last records overview",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(
                   height: 5,
                 ),
-                Text("Last 30 Days", style: TextStyle(color: Colors.grey[400])),
+                Text("Last 30 Days",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(color: Colors.black54)),
                 SizedBox(
                   height: 5,
                 ),
                 //Item rows
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.red[300],
+                    child: Icon(
+                      Icons.dangerous,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Text(
+                    'Food & Drinks',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontSize: 16),
+                  ),
+                  subtitle: Text('Today'),
+                  trailing: Column(
                     children: [
-                      Icon(Icons.phone),
                       SizedBox(
-                        width: 20,
+                        height: 10,
                       ),
-                      Text("Bar, cafe", style: TextStyle(fontSize: 15)),
-                      Spacer(),
-                      Text("-5000",
+                      Text("-₹5000",
                           style: TextStyle(color: Colors.red, fontSize: 15)),
                       SizedBox(
-                        width: 20,
+                        height: 5,
                       ),
+                      Text(
+                        'Yesterday',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: Colors.black54, fontSize: 14),
+                      )
                     ],
                   ),
                 ),
