@@ -1,16 +1,46 @@
 {
     "expense": [
       {
-        "desc": "dart1",
-        "amount": 12,
+        "desc": "food",
+        "amount": 102.8766,
         "note": "hello",
-        "date" : "11-23-23"
+        "date" : 12233,
+        "type":"expense"
       },
       {
-        "desc": "dart2",
-       "amount": 12,
+        "desc": "rent",
+       "amount": 1200.65,
         "note": "hello",
+        "type":"expense",
          "date" : 122334333
+      },
+      {
+        "desc": "good",
+        "amount": 112.643,
+        "note": "hello",
+        "date" : 12233,
+        "type":"expense"
+      },
+      {
+        "desc": "nothing",
+        "amount": 120.5,
+        "note": "hello",
+        "date" : 12233,
+        "type":"expense"
+      },
+      {
+        "desc": "freeebees",
+        "amount": 192,
+        "note": "hello",
+        "date" : 12233,
+        "type":"income"
+      },
+      {
+        "desc": "dark",
+        "amount": 122,
+        "note": "hello",
+        "date" : 12233,
+        "type":"income"
       }
     ]
   }

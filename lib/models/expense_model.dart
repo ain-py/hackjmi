@@ -7,8 +7,7 @@ import 'dart:convert';
 ExpenseData expenseDataFromJson(String str) =>
     ExpenseData.fromJson(json.decode(str));
 
-String expenseDataToJson(ExpenseData data) => json.encode(data
-    .toJson()); // ExpenseData this should contain list of all the expenses :)
+String expenseDataToJson(ExpenseData data) => json.encode(data.toJson());
 
 class ExpenseData {
   ExpenseData({
@@ -32,18 +31,21 @@ class Expense {
     required this.desc,
     required this.amount,
     required this.note,
+    required this.type,
     required this.date,
   });
 
   String desc;
-  int amount;
+  double amount;
   String note;
-  dynamic date;
+  String type;
+  int date;
 
   factory Expense.fromJson(Map<String, dynamic> json) => Expense(
         desc: json["desc"],
-        amount: json["amount"],
+        amount: json["amount"]?.toDouble(),
         note: json["note"],
+        type: json["type"],
         date: json["date"],
       );
 
@@ -51,6 +53,7 @@ class Expense {
         "desc": desc,
         "amount": amount,
         "note": note,
+        "type": type,
         "date": date,
       };
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:app/provider/main_provider.dart';
+import 'package:app/screens/add_category.dart';
 import 'package:app/screens/home_page.dart';
 import 'package:app/utils/colors.dart';
 import 'package:flutter/material.dart';
