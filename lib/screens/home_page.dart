@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app/models/expense_model.dart';
 import 'package:app/provider/main_provider.dart';
+import 'package:app/screens/add_category.dart';
 import 'package:app/utils/constants.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,12 @@ class _HomePageState extends State<HomePage> {
         title: Text('Home'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddCategory()),
+          );
+        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavyBar(

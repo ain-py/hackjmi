@@ -91,7 +91,7 @@ class MainProvider extends ChangeNotifier {
           icon = FontAwesomeIcons.moneyBill;
           color = const Color(0xff0984e3);
           break;
-        case IncomeConstants.CHID_SUPPORT:
+        case IncomeConstants.CHILD_SUPPORT:
           icon = FontAwesomeIcons.child;
           color = const Color(0xfffdcb6e);
           break;
