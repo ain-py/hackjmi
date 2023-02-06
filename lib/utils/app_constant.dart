@@ -17,7 +17,7 @@ class ExpenseConstants {
 class IncomeConstants {
   static const String OTHERS = "Others";
   static const String CHECKS_COUPONS = "Checks, Coupans";
-  static const String CHID_SUPPORT = "Child Support";
+  static const String CHILD_SUPPORT = "Child Support";
   static const String DUES_GRANTS = "Dues & Grants";
   static const String GIFTS = "Gifts";
   static const String INTREST = "intrest, Dividends";
