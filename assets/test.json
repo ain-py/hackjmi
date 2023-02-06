@@ -1,21 +1,21 @@
 {
     "expense": [
       {
-        "desc": "food",
+        "desc": "Food & Drinks",
         "amount": 102.8766,
         "note": "hello",
         "date" : 12233,
         "type":"expense"
       },
       {
-        "desc": "rent",
+        "desc": "Shopping",
        "amount": 1200.65,
         "note": "hello",
         "type":"expense",
          "date" : 122334333
       },
       {
-        "desc": "good",
+        "desc": "Vehicle",
         "amount": 112.643,
         "note": "hello",
         "date" : 12233,
@@ -29,7 +29,7 @@
         "type":"expense"
       },
       {
-        "desc": "freeebees",
+        "desc": "Child Support",
         "amount": 192,
         "note": "hello",
         "date" : 12233,

@@ -99,6 +99,107 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          "Account Details",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.green[300],
+                                  // boxShadow: kboxShadow,
+                                ),
+                                padding: EdgeInsets.all(8),
+                                margin: EdgeInsets.all(8),
+                                child: Column(children: [
+                                  Text(
+                                    "Income",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "₹15050",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ]),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.red[300],
+                                  // boxShadow: kboxShadow,
+                                ),
+                                padding: EdgeInsets.all(8),
+                                margin: EdgeInsets.all(8),
+                                child: Column(children: [
+                                  Text(
+                                    "Expenses",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "-₹5550",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ]),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.blueGrey[400],
+                                  // boxShadow: kboxShadow,
+                                ),
+                                padding: EdgeInsets.all(8),
+                                margin: EdgeInsets.all(8),
+                                child: Column(children: [
+                                  Text(
+                                    "Remaining",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "₹1220",
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ]),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      boxShadow: kboxShadow,
+                    ),
+                    padding: EdgeInsets.all(8),
+                    margin: EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           "Expenses Structure",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
@@ -179,63 +280,47 @@ class _HomePageState extends State<HomePage> {
                         ),
                         //Item rows
 
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.red[300],
-                            child: FaIcon(
-                              FontAwesomeIcons.bowlFood,
-                              color: Colors.white,
-                            ),
-                          ),
-                          title: Text(
-                            'Food & Drinks',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(fontSize: 16),
-                          ),
-                          subtitle: Text('Today'),
-                          trailing: Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text("-₹5000",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 15)),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Yesterday',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium!
-                                    .copyWith(
-                                        color: Colors.black54, fontSize: 14),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.phone),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text("Others", style: TextStyle(fontSize: 15)),
-                              Spacer(),
-                              Text("-129",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 15)),
-                              SizedBox(
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
+                        // ListTile(
+                        //   leading: CircleAvatar(
+                        //     // backgroundColor: Colors.red[300],
+                        //     backgroundColor: const Color(0xff0984e3),
+                        //     child: FaIcon(
+                        //       // FontAwesomeIcons.bowlFood,
+                        //       FontAwesomeIcons.houseChimney,
+                        //       color: Colors.white,
+                        //     ),
+                        //   ),
+                        //   title: Text(
+                        //     'Food & Drinks',
+                        //     style: Theme.of(context)
+                        //         .textTheme
+                        //         .titleLarge!
+                        //         .copyWith(fontSize: 16),
+                        //   ),
+                        //   subtitle: Text('Today'),
+                        //   trailing: Column(
+                        //     children: [
+                        //       SizedBox(
+                        //         height: 5,
+                        //       ),
+                        //       Text("-₹5000",
+                        //           style: TextStyle(
+                        //               color: Colors.red, fontSize: 15)),
+                        //       SizedBox(
+                        //         height: 5,
+                        //       ),
+                        //       Text(
+                        //         'Yesterday',
+                        //         style: Theme.of(context)
+                        //             .textTheme
+                        //             .labelMedium!
+                        //             .copyWith(
+                        //                 color: Colors.black54, fontSize: 14),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        Column(children: provider.listItems),
                       ],
                     ),
                   )
