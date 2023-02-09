@@ -2,9 +2,8 @@ import 'package:app/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPorvider extends ChangeNotifier {
-  bool value = false;
   String type = "expense";
-  String selectedType = '';
+  String? selectedType;
   List<String> expenseItems = [
     ExpenseConstants.BUSINESS_TRIPS,
     ExpenseConstants.FOOOD_DRINKS,
@@ -32,7 +31,7 @@ class CategoryPorvider extends ChangeNotifier {
     IncomeConstants.WAGE,
   ];
   void setSelectedType() {
-    selectedType = '';
+    selectedType = null;
     notifyListeners();
   }
 }

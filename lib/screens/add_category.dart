@@ -1,11 +1,7 @@
 import 'package:app/provider/add_category_provider.dart';
 import 'package:app/utils/colors.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AddCategory extends StatefulWidget {
@@ -16,30 +12,6 @@ class AddCategory extends StatefulWidget {
 }
 
 class _AddCategoryState extends State<AddCategory> {
-  Widget _customDropDownAddress(BuildContext context, String? item) {
-    return Text(
-      item ?? 'Choose a category',
-      style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 16),
-    );
-  }
-
-  Widget _style1(BuildContext context, String? item, bool isSelected) {
-    return Column(
-      children: [
-        ListTile(
-          title: Text(
-            item ?? '',
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 16),
-          ),
-        ),
-        Divider(
-          thickness: 1,
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +63,6 @@ class _AddCategoryState extends State<AddCategory> {
                         groupValue: provider.type,
                         onChanged: (value) {
                           provider.type = value.toString();
-
                           provider.setSelectedType();
                         },
                       ),
@@ -111,27 +82,26 @@ class _AddCategoryState extends State<AddCategory> {
                 SizedBox(
                   height: 8,
                 ),
-                DropdownSearch<String>(
-                  items: provider.type == "expense"
-                      ? provider.expenseItems
-                      : provider.incomeItems,
-                  onChanged: (value) {
-                    provider.selectedType = value!;
-                    print(provider.selectedType);
+                DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                    hintText: 'Choose a category',
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  value: provider.selectedType,
+                  items: provider.expenseItems.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      provider.selectedType = newValue!;
+                    });
                   },
-                  dropdownBuilder: _customDropDownAddress,
-                  selectedItem: provider.selectedType,
-                  popupProps: PopupProps.menu(
-                    itemBuilder: _style1,
-                    showSelectedItems: true,
-                  ),
-                  dropdownDecoratorProps: DropDownDecoratorProps(
-                    dropdownSearchDecoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14)),
-                        fillColor: Colors.white,
-                        filled: true),
-                  ),
                 ),
                 SizedBox(
                   height: 5,
