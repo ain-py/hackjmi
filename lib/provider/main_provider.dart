@@ -3,44 +3,44 @@ import 'package:app/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainProvider extends ChangeNotifier {
   List<String> expenseCategory = [
     ExpenseConstants.BUSINESS_TRIPS,
   ];
-  late ExpenseData _expenseData;
+  late ExpenseData expenseData;
   Map<String, double> pieData = {};
   bool isLoadingHome = true;
   double totalSpend = 0;
+  double totalIncome = 0;
+  double totalRemaining = 0;
   void getExpense() async {
-    _expenseData =
-        expenseDataFromJson(await rootBundle.loadString('assets/test.json'));
-    print(_expenseData.expense);
-
-    var newExp = Expense(
-        amount: 10,
-        note: "hello",
-        desc: "this is rhe",
-        type: "expense",
-        date: DateTime.now().millisecondsSinceEpoch);
-    _expenseData.expense.add(newExp);
-    _expenseData.expense.sort((e1, e2) => e2.amount.compareTo(e1.amount));
-    _expenseData.expense.forEach((element) {
-      if (element.type == "expense") {
-        totalSpend += element.amount;
-        if (pieData.length != 5) pieData[element.desc] = element.amount;
-      }
-    });
-    print(expenseDataToJson(_expenseData));
-    // print(pieData);
-    isLoadingHome = false;
-    notifyListeners();
-    data();
+    isLoadingHome = true;
+    final prefs = await SharedPreferences.getInstance();
+    final String? listData = prefs.getString('data');
+    if (listData != null) {
+      expenseData = expenseDataFromJson(listData);
+      isLoadingHome = false;
+      notifyListeners();
+      data();
+    }
   }
 
   List<Widget> listItems = [];
   void data() {
-    _expenseData.expense.forEach((element) {
+    listItems = [];
+    expenseData.expense.forEach((element) {
+      if (element.type == "expense") {
+        totalSpend += element.amount;
+        if (!pieData.containsKey(element.desc)) {
+          pieData[element.desc] = element.amount;
+        } else {
+          pieData[element.desc] = pieData[element.desc]! + element.amount;
+        }
+      } else {
+        totalIncome = element.amount;
+      }
       var icon, color;
       switch (element.desc) {
         case ExpenseConstants.BUSINESS_TRIPS:
@@ -146,7 +146,7 @@ class MainProvider extends ChangeNotifier {
         title: Text(
           element.desc,
           // s,
-          // style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 16),
+          style: TextStyle(fontSize: 16),
         ),
         subtitle: Text('Today'),
         trailing: Column(
@@ -176,6 +176,9 @@ class MainProvider extends ChangeNotifier {
         ),
       );
       listItems.add(item);
+      listItems.add(Divider(
+        thickness: 1,
+      ));
     });
     print(listItems);
   }
