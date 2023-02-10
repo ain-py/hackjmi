@@ -5,6 +5,7 @@ import 'package:app/provider/main_provider.dart';
 import 'package:app/screens/add_category.dart';
 import 'package:app/utils/constants.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     "Xamarin": 2,
     "Ionic": 2,
   };
+  Color color = Colors.white;
   final colorList = <Color>[
     const Color(0xfffdcb6e),
     const Color(0xff0984e3),
@@ -50,14 +52,24 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: colors.primary,
         title: Text('Home'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddCategory()),
-          );
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Consumer<MainProvider>(
+        builder: (context, provider, child) => FloatingActionButton(
+          onPressed: () async {
+            print(provider.expenseData.expense);
+            final value = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddCategory(
+                        expenseData: provider.expenseData,
+                      )),
+            );
+            setState(() {
+              color = color == Colors.white ? Colors.grey : Colors.white;
+              Provider.of<MainProvider>(context, listen: false).data();
+            });
+          },
+          child: Icon(Icons.add),
+        ),
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,
@@ -130,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    "₹15050",
+                                    "₹${provider.totalIncome}",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -156,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    "-₹5550",
+                                    "-₹${provider.totalSpend}",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -182,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 8,
                                   ),
                                   Text(
-                                    "₹1220",
+                                    "₹${provider.totalIncome - provider.totalSpend}",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -227,7 +239,9 @@ class _HomePageState extends State<HomePage> {
                           height: 3,
                         ),
                         PieChart(
-                          dataMap: provider.pieData,
+                          dataMap: provider.pieData.isEmpty
+                              ? {'Add Expenses': 0}
+                              : provider.pieData,
                           animationDuration: Duration(milliseconds: 800),
                           chartLegendSpacing: 32,
                           chartRadius: MediaQuery.of(context).size.width / 3.2,
@@ -235,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                           initialAngleInDegree: 0,
                           chartType: ChartType.disc,
                           ringStrokeWidth: 32,
-                          centerText: "Expense",
+                          // centerText: "Expense",
                           legendOptions: LegendOptions(
                             showLegendsInRow: false,
                             legendPosition: LegendPosition.right,
@@ -248,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                           chartValuesOptions: ChartValuesOptions(
                             showChartValueBackground: true,
                             showChartValues: true,
-                            showChartValuesInPercentage: false,
+                            // showChartValuesInPercentage: false,
                             showChartValuesOutside: false,
                             decimalPlaces: 1,
                           ),
@@ -284,49 +298,15 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 5,
                         ),
-                        //Item rows
-
-                        // ListTile(
-                        //   leading: CircleAvatar(
-                        //     // backgroundColor: Colors.red[300],
-                        //     backgroundColor: const Color(0xff0984e3),
-                        //     child: FaIcon(
-                        //       // FontAwesomeIcons.bowlFood,
-                        //       FontAwesomeIcons.houseChimney,
-                        //       color: Colors.white,
-                        //     ),
-                        //   ),
-                        //   title: Text(
-                        //     'Food & Drinks',
-                        //     style: Theme.of(context)
-                        //         .textTheme
-                        //         .titleLarge!
-                        //         .copyWith(fontSize: 16),
-                        //   ),
-                        //   subtitle: Text('Today'),
-                        //   trailing: Column(
-                        //     children: [
-                        //       SizedBox(
-                        //         height: 5,
-                        //       ),
-                        //       Text("-₹5000",
-                        //           style: TextStyle(
-                        //               color: Colors.red, fontSize: 15)),
-                        //       SizedBox(
-                        //         height: 5,
-                        //       ),
-                        //       Text(
-                        //         'Yesterday',
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .labelMedium!
-                        //             .copyWith(
-                        //                 color: Colors.black54, fontSize: 14),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        Column(children: provider.listItems),
+                        ExpandablePanel(
+                          header: Text('tap to expand the items'),
+                          collapsed: Text('yo'),
+                          expanded: Column(children: provider.listItems),
+                          theme: ExpandableThemeData(
+                              useInkWell: true,
+                              tapBodyToCollapse: true,
+                              tapBodyToExpand: true),
+                        ),
                       ],
                     ),
                   )
