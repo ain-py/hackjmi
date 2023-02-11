@@ -4,6 +4,8 @@ import 'package:app/provider/add_category_provider.dart';
 import 'package:app/provider/main_provider.dart';
 import 'package:app/screens/add_category.dart';
 import 'package:app/screens/home_page.dart';
+import 'package:app/screens/stock_model.dart';
+import 'package:app/screens/landing_page.dart';
 import 'package:app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: colors.primary_app,
       ),
-      home: const HomePage(),
+      home: const LandingPage(),
     );
   }
 }
