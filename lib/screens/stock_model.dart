@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:app/models/stock_model.dart';
+import 'package:app/screens/stock_predict.dart';
 import 'package:app/utils/colors.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:app/utils/colors.dart';
 import '../utils/constants.dart';
 
 class StockModel extends StatefulWidget {
@@ -29,28 +33,10 @@ class _StockModelState extends State<StockModel>
   // ));
   String id = '';
   double prediction = 0.0;
-  void predictStock() async {
-    setState(() {
-      isLoading = true;
-    });
-    var res = await http
-        .get(Uri.parse('http://10.0.2.2:5000/predict/${stockController.text}'));
-    print(res.body);
-    if (res.statusCode == 200) {
-      var deco = jsonDecode(res.body);
-      id = deco['id'];
-      prediction = deco['prediction'];
-      setState(() {
-        isLoading = false;
-        isDataLoaded = true;
-      });
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
 
   bool isLoading = false;
   bool isDataLoaded = false;
+
   @override
   void dispose() {
     //   _controller.dispose();
@@ -85,18 +71,28 @@ class _StockModelState extends State<StockModel>
                 SizedBox(
                   height: 8,
                 ),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: stockController,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Field is required' : null,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(14)),
-                    hintText: 'Note',
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
+                TypeAheadField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                      // autofocus: true,
+                      style: DefaultTextStyle.of(context)
+                          .style
+                          .copyWith(fontStyle: FontStyle.italic),
+                      decoration:
+                          InputDecoration(border: OutlineInputBorder())),
+                  suggestionsCallback: (pattern) async {
+                    return await BackendService.getSuggestions(pattern);
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return ListTile(
+                      leading: FaIcon(FontAwesomeIcons.moneyCheck),
+                      title: Text(suggestion['name'] ?? ''),
+                      subtitle: Text('${suggestion['symbol']}'),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => StockPredict(item: suggestion)));
+                  },
                 ),
                 SizedBox(
                   height: 30,
@@ -111,12 +107,7 @@ class _StockModelState extends State<StockModel>
                           : Text('Search',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          print('heejndks');
-                          predictStock();
-                        }
-                      },
+                      onPressed: () {},
                     ),
                   ),
                 ),

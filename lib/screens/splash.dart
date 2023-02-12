@@ -1,6 +1,8 @@
 import 'package:app/screens/first_screen.dart';
+import 'package:app/screens/onbording/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/colors.dart';
 
@@ -19,10 +21,19 @@ class _SplashState extends State<Splash> {
   }
 
   void _navigatetoHome() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => FirstPage()));
-    });
+    var prefs = await SharedPreferences.getInstance();
+    bool? isNewUser = prefs.getBool('isNewUser');
+    if (isNewUser == null) {
+      await Future.delayed(Duration(milliseconds: 1500), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Onbording()));
+      });
+    } else {
+      await Future.delayed(Duration(milliseconds: 1500), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => FirstPage()));
+      });
+    }
   }
 
   @override

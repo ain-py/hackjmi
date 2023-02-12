@@ -8,11 +8,14 @@ import 'package:app/screens/home_page.dart';
 import 'package:app/screens/splash.dart';
 import 'package:app/screens/stock_model.dart';
 import 'package:app/screens/onbording/landing_page.dart';
+import 'package:app/screens/stock_predict.dart';
 import 'package:app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'models/line_chart.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -38,9 +41,10 @@ class _MyAppState extends State<MyApp> {
       await prefs.setString(
           'data', await rootBundle.loadString('assets/base_data.json'));
     }
-    // } else {
+    //  else {
     //   await prefs.setString(
     //       'data', await rootBundle.loadString('assets/base_data.json'));
+    //   prefs.remove('isNewUser');
     // }
   }
 
