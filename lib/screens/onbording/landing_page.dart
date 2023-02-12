@@ -1,6 +1,11 @@
+import 'package:app/models/expense_model.dart';
+import 'package:app/screens/first_screen.dart';
 import 'package:app/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/app_constant.dart';
 import 'onbording_content.dart';
 
 class Onbording extends StatefulWidget {
@@ -11,7 +16,8 @@ class Onbording extends StatefulWidget {
 class _OnbordingState extends State<Onbording> {
   int currentIndex = 0;
   late PageController _controller;
-
+  TextEditingController savingsController = TextEditingController();
+  bool isLoading = false;
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
@@ -91,17 +97,19 @@ class _OnbordingState extends State<Onbording> {
                   currentIndex == contents.length - 1 ? "Continue" : "Next"),
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => HomePage(),
-                    ),
+                  _showMyDialog();
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (_) => HomePage(),
+                  //   ),
+                  // );
+                } else {
+                  _controller.nextPage(
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.bounceIn,
                   );
                 }
-                _controller.nextPage(
-                  duration: Duration(milliseconds: 100),
-                  curve: Curves.bounceIn,
-                );
               },
               // color: Theme.of(context).primaryColor,
               // textColor: Colors.white,
@@ -112,6 +120,91 @@ class _OnbordingState extends State<Onbording> {
           )
         ],
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Enter Your Savings:'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: savingsController,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Field is required' : null,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                    hintText: '0.0',
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: SizedBox(
+                    width: 100,
+                    height: 50,
+                    child: ElevatedButton(
+                      child: isLoading
+                          ? CircularProgressIndicator()
+                          : Text('Save',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              if (!savingsController.text.isEmpty) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                var prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.setBool('isNewUser', false);
+                                var newExp = Expense(
+                                    amount:
+                                        double.parse(savingsController.text),
+                                    note: "no",
+                                    desc: "Savings",
+                                    type: "income",
+                                    date:
+                                        DateTime.now().millisecondsSinceEpoch);
+                                final String? listData =
+                                    prefs.getString('data');
+                                var expenseData;
+                                if (listData != null) {
+                                  expenseData = expenseDataFromJson(listData);
+                                  expenseData.expense.insert(0, newExp);
+                                }
+
+                                prefs.setString(
+                                    'data', expenseDataToJson(expenseData));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => FirstPage(),
+                                  ),
+                                );
+                              }
+                            },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

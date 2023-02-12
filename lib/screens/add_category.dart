@@ -139,7 +139,7 @@ class _AddCategoryState extends State<AddCategory> {
                     height: 5,
                   ),
                   Text(
-                    "Budgeted Amount",
+                    "Amount",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,

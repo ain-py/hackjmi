@@ -30,6 +30,7 @@ class MainProvider extends ChangeNotifier {
   List<Widget> listItems = [];
   void data() {
     totalSpend = 0;
+    totalIncome = 0;
     listItems = [];
     pieData = {};
 
@@ -44,7 +45,7 @@ class MainProvider extends ChangeNotifier {
           pieData[element.desc] = pieData[element.desc]! + element.amount;
         }
       } else {
-        totalIncome = element.amount;
+        totalIncome += element.amount;
       }
       var icon, color;
       switch (element.desc) {
