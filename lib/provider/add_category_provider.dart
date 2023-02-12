@@ -66,5 +66,8 @@ class CategoryPorvider extends ChangeNotifier {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('data', expenseDataToJson(expenseData));
     print(expenseData.expense);
+    amountController.clear();
+    noteController.clear();
+    selectedType = null;
   }
 }

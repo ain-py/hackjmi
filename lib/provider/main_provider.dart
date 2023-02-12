@@ -30,9 +30,12 @@ class MainProvider extends ChangeNotifier {
   List<Widget> listItems = [];
   void data() {
     listItems = [];
+
     expenseData.expense.forEach((element) {
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(element.date);
       if (element.type == "expense") {
         totalSpend += element.amount;
+
         if (!pieData.containsKey(element.desc)) {
           pieData[element.desc] = element.amount;
         } else {
@@ -135,6 +138,20 @@ class MainProvider extends ChangeNotifier {
           icon = FontAwesomeIcons.commentDollar;
           color = const Color(0xff6c5ce7);
       }
+      List months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ];
       var item = ListTile(
         leading: CircleAvatar(
           backgroundColor: color,
@@ -148,7 +165,7 @@ class MainProvider extends ChangeNotifier {
           // s,
           style: TextStyle(fontSize: 16),
         ),
-        subtitle: Text('Today'),
+        subtitle: Text('Cash'),
         trailing: Column(
           children: [
             SizedBox(
@@ -156,8 +173,8 @@ class MainProvider extends ChangeNotifier {
             ),
             Text(
                 element.type == 'expense'
-                    ? "-₹${element.amount}"
-                    : "+₹${element.amount}",
+                    ? "- ₹${element.amount}"
+                    : "+ ₹${element.amount}",
                 style: TextStyle(
                     color:
                         element.type == 'expense' ? Colors.red : Colors.green,
@@ -166,7 +183,11 @@ class MainProvider extends ChangeNotifier {
               height: 5,
             ),
             Text(
-              'Yesterday',
+              date.day == DateTime.now().day
+                  ? 'Today'
+                  : date.day == DateTime.now().day - 1
+                      ? 'Yesterday'
+                      : '${date.day} ${months[date.month - 1]}',
               // style: Theme.of(context)
               //     .textTheme
               //     .labelMedium!
