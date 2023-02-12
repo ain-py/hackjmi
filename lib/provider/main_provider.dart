@@ -29,7 +29,9 @@ class MainProvider extends ChangeNotifier {
 
   List<Widget> listItems = [];
   void data() {
+    totalSpend = 0;
     listItems = [];
+    pieData = {};
 
     expenseData.expense.forEach((element) {
       DateTime date = DateTime.fromMillisecondsSinceEpoch(element.date);
