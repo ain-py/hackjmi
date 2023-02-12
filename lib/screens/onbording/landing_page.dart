@@ -43,11 +43,18 @@ class _OnbordingState extends State<Onbording> {
                   padding: const EdgeInsets.all(40),
                   child: Column(
                     children: [
-                      Image(image: AssetImage(contents[i].image)),
+                      Image(
+                        image: AssetImage(contents[i].image),
+                        height: 370,
+                        width: 400,
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Text(
                         contents[i].title,
                         style: TextStyle(
-                          fontSize: 35,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

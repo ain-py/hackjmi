@@ -74,27 +74,6 @@ class _HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
         ),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        showElevation: true,
-        itemCornerRadius: 24,
-        curve: Curves.easeIn,
-        onItemSelected: (index) => setState(() => _currentIndex = index),
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-            icon: Icon(Icons.apps),
-            title: Text('Home'),
-            activeColor: Colors.red,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.people),
-            title: Text('Users'),
-            activeColor: Colors.purpleAccent,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
       body: Consumer<MainProvider>(
         builder: (context, provider, child) => provider.isLoadingHome
             ? Center(child: CircularProgressIndicator())
