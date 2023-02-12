@@ -4,6 +4,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -44,6 +45,7 @@ class _FirstPageState extends State<FirstPage> {
         ),
       ),
       bottomNavigationBar: BottomNavyBar(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         selectedIndex: _currentIndex,
         showElevation: true,
         itemCornerRadius: 24,
@@ -55,17 +57,23 @@ class _FirstPageState extends State<FirstPage> {
         }),
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-            icon: Icon(Icons.apps),
+            icon: FaIcon(FontAwesomeIcons.houseChimney),
             title: Text('Home'),
             activeColor: Colors.red,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.people),
-            title: Text('Users'),
+            icon: FaIcon(FontAwesomeIcons.moneyBillTrendUp),
+            title: Text('Stock'),
             activeColor: Colors.purpleAccent,
             textAlign: TextAlign.center,
           ),
+          // BottomNavyBarItem(
+          //   icon: Container(),
+          //   title: Container(),
+          //   activeColor: Colors.purpleAccent,
+          //   textAlign: TextAlign.center,
+          // ),
         ],
       ),
     );
