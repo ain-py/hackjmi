@@ -65,7 +65,10 @@ class _HomePageState extends State<HomePage> {
             );
             setState(() {
               color = color == Colors.white ? Colors.grey : Colors.white;
-              Provider.of<MainProvider>(context, listen: false).data();
+              provider = Provider.of<MainProvider>(context, listen: false);
+              provider.totalIncome = 0;
+              provider.totalSpend = 0;
+              provider.data();
             });
           },
           child: Icon(Icons.add),
@@ -88,12 +91,6 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.people),
             title: Text('Users'),
             activeColor: Colors.purpleAccent,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-            activeColor: Colors.blue,
             textAlign: TextAlign.center,
           ),
         ],
@@ -134,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                                 margin: EdgeInsets.all(8),
                                 child: Column(children: [
                                   Text(
-                                    "Income",
+                                    "Savings",
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -300,12 +297,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                         ExpandablePanel(
                           header: Text('tap to expand the items'),
-                          collapsed: Text('yo'),
+                          collapsed: collapsedCont(provider.listItems),
                           expanded: Column(children: provider.listItems),
                           theme: ExpandableThemeData(
                               useInkWell: true,
                               tapBodyToCollapse: true,
-                              tapBodyToExpand: true),
+                              tapBodyToExpand: true,
+                              tapHeaderToExpand: true),
                         ),
                       ],
                     ),
@@ -313,6 +311,21 @@ class _HomePageState extends State<HomePage> {
                 ],
               )),
       ),
+    );
+  }
+
+  Widget collapsedCont(List<Widget> list) {
+    int count = 0;
+    List<Widget> finalList = [];
+    for (int i = 0; i < list.length; i++) {
+      if (count > 4) {
+        break;
+      }
+      finalList.add(list[i]);
+      count++;
+    }
+    return Column(
+      children: finalList,
     );
   }
 }
