@@ -28,7 +28,7 @@ class CategoryPorvider extends ChangeNotifier {
     IncomeConstants.OTHERS,
     IncomeConstants.CHECKS_COUPONS,
     IncomeConstants.CHILD_SUPPORT,
-    IncomeConstants.DUES_GRANTS,
+    // IncomeConstants.DUES_GRANTS,
     IncomeConstants.GIFTS,
     IncomeConstants.INTREST,
     IncomeConstants.LENDING,

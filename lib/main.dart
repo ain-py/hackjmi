@@ -5,6 +5,7 @@ import 'package:app/provider/main_provider.dart';
 import 'package:app/screens/add_category.dart';
 import 'package:app/screens/first_screen.dart';
 import 'package:app/screens/home_page.dart';
+import 'package:app/screens/splash.dart';
 import 'package:app/screens/stock_model.dart';
 import 'package:app/screens/onbording/landing_page.dart';
 import 'package:app/utils/colors.dart';
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: colors.primary_app,
       ),
-      home: FirstPage(),
+      home: Splash(),
     );
   }
 }
