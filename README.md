@@ -1,6 +1,8 @@
-# app
+# About
 
-A new Flutter project.
+• Developed a comprehensive financial management application catering to college students, integrating budget
+planning and investment functionalities alongside stock prediction capabilities. Implemented the stock prediction
+module using an LSTM model.
 
 ## Getting Started
 
